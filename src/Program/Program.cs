@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
+using Ucu.Poo.GameOfLife;
 
-namespace Ucu.Poo.GameOfLife
+namespace Program
 {
     class Program
     {
