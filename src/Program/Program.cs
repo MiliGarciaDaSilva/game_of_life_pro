@@ -7,7 +7,7 @@ namespace Ucu.Poo.GameOfLife
     {
         static void Main(string[] args)
         {
-            string path = "Board.txt";  
+            string path = "board.txt";  
             
             BoardLoader loader = new BoardLoader();
             BoardPrinter printer = new BoardPrinter();
@@ -15,12 +15,11 @@ namespace Ucu.Poo.GameOfLife
             
             Board board = loader.LoadFromFile(path);
             
-            for (int generation = 0; generation < 10; generation++)
+            for (int generation = 0; generation < 100; generation++)
             {
-                Console.WriteLine($"Generación {generation}");
                 printer.Print(board);
                 rules.NextGeneration(board);
-                Thread.Sleep(500);
+                Thread.Sleep(300);
             }
         }
     }

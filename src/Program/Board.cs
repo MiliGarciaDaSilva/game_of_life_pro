@@ -17,6 +17,7 @@ public class Board
     {
         cells = new bool[width, height];
     }
+    
 
     public bool[,] GetCells()
     {
