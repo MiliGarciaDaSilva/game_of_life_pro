@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace Ucu.Poo.GameOfLife
 {
-    class Programgit
+    class Program
     {
         static void Main(string[] args)
         {
