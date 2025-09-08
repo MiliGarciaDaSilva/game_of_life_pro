@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Text;
-using System.Threading;
 
 namespace Ucu.Poo.GameOfLife;
 
@@ -32,6 +31,33 @@ public class Board
 
 // La clase Board tiene una única razón de cambio, que es cómo se representa el tablero
 // Board es "experto" en las dimensiones del tablero, debe conocer Width y Height
+
+//-------------------------------------------Inicializar tablero------------------------------------------------------//
+public class BoardLoader
+{
+    public Board LoadFromFile(string url)
+    {
+        string content = File.ReadAllText(url);
+        string[] contentLines = content.Split('\n');
+        bool[,] board = new bool[contentLines.Length, contentLines[0].Length];
+        for (int  y=0; y<contentLines.Length;y++)
+        {
+            for (int x=0; x<contentLines[y].Length; x++)
+            {
+                if(contentLines[y][x]=='1')
+                {
+                    board[y,x]=true;
+                }
+            }
+        }
+        var newBoard = new Board(board.GetLength(0), board.GetLength(1));
+        newBoard.SetCells(board);
+        return newBoard;
+    }
+}
+
+// La clase BoardLoader tiene una única razón de cambio, el formato del archivo
+// Es experto en cómo interpretar el archivo y transformarlo en una matriz
 
 //-------------------------------------------Reglas del juego---------------------------------------------------------//
 public class Rules
@@ -93,33 +119,6 @@ public class Rules
 // La clase rules tiene una única razón de cambio, que sería el caso de que cambiaran las reglas del juego
 // Rules es experta únicamente en decidir si una célula está viva o muerta, evaluando el estado de sus vecinos
 
-//-------------------------------------------Inicializar tablero------------------------------------------------------//
-public class BoardLoader
-{
-    public Board LoadFromFile(string url)
-    {
-        string content = File.ReadAllText(url);
-        string[] contentLines = content.Split('\n');
-        bool[,] board = new bool[contentLines.Length, contentLines[0].Length];
-        for (int  y=0; y<contentLines.Length;y++)
-        {
-            for (int x=0; x<contentLines[y].Length; x++)
-            {
-                if(contentLines[y][x]=='1')
-                {
-                    board[y,x]=true;
-                }
-            }
-        }
-        var newBoard = new Board(board.GetLength(0), board.GetLength(1));
-        newBoard.SetCells(board);
-        return newBoard;
-    }
-}
-
-// La clase BoardLoader tiene una única razón de cambio, el formato del archivo
-// Es experto en cómo interpretar el archivo y transformarlo en una matriz
-
 //-------------------------------------------Imprimir tablero---------------------------------------------------------//
 public class BoardPrinter
 {
@@ -151,5 +150,5 @@ public class BoardPrinter
     }
 }
 
-// La clase BordPrinter tiene una única razón de cambio, el estilo de impresión del tablero
+// La clase BoardPrinter tiene una única razón de cambio, el estilo de impresión del tablero
 // Se especializa en renderizar el tablero 
